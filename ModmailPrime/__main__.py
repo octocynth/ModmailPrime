@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 import sys
 import asyncio
@@ -47,6 +48,12 @@ bot = commands.Bot(command_prefix=config['prefix'])
 bot.bot_config = config
 
 asyncio.run(init(config['db']))
+
+if config['debug']:
+    level = logging.DEBUG
+else:
+    level = logging.INFO
+logging.basicConfig(level=level)
 
 for ext in os.listdir('ModmailPrime/cogs'):
     if not ext.startswith(('_', '.')):

@@ -11,7 +11,6 @@ async def init(db_config):
     }
     await Tortoise.init(config=db_config)
 
-    # Generate the schema
     await Tortoise.generate_schemas()
 
 
