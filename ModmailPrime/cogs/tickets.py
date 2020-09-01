@@ -17,7 +17,7 @@ class Tickets(commands.Cog):
             critical("Cannot find server ID identified in config. Please correct and restart the bot.")
             sys.exit(0)
 
-        if self.bot.bot_config['category_id'] not in [cateogry.id for cateogry in guild.categories]:
+        if self.bot.bot_config['category_id'] not in [category.id for category in guild.categories]:
             critical("Cannot find cateogry identified in config, please correct and restart the bot.")
             sys.exit(0)
 
