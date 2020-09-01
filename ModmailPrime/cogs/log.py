@@ -49,4 +49,9 @@ class DiscordLogger(logging.StreamHandler):
         if record.exc_text is not None:
             embed.add_field(name="Exception Info", value=record.exc_text)
         embed.add_field(name=f"Error in {record.funcName} on line {record.lineno}", value=record.filename)
-        await channel.send(embed=embed)
+        try:
+            await channel.send(embed=embed)
+        except (RuntimeError, discord.ClientException):
+            # RuntimeError: raised by aiohttp when the bot is closing; quiets log spam on exit
+            # ClientException: raised when we can't send the message; prevents infinite cycle of errors
+            pass

@@ -15,15 +15,18 @@ class Tickets(commands.Cog):
         guild = self.bot.get_guild(self.bot.bot_config['server_id'])
         if guild is None:
             critical("Cannot find server ID identified in config. Please correct and restart the bot.")
-            sys.exit(0)
+            await self.bot.close()
+            return
 
         if self.bot.bot_config['category_id'] not in [category.id for category in guild.categories]:
             critical("Cannot find cateogry identified in config, please correct and restart the bot.")
-            sys.exit(0)
+            await self.bot.close()
+            return
 
         if self.bot.get_channel(self.bot.bot_config['error_channel_id']) is None:
             critical("Cannot find error channel identified in config, please correct and restart the bot.")
-            sys.exit(0)
+            await self.bot.close()
+            return
 
         debug("All channel checks passed.")
 
